@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>프로젝트 상세 정보 로딩 중... - 김남해</title>
+    <meta name="description" content="김남해 포트폴리오 프로젝트 상세 정보"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 class="visually-hidden">프로젝트 상세 정보</h1>
+<button class="dark-toggle" aria-label="테마 전환">다크 모드</button>
+
+<div id="header-placeholder"></div>
+
+<main>
+    <section id="project-details" class="content js-scroll-fade-in">
+        <h2 id="project-title" style="min-height: 1.2em;"></h2>
+        <img id="project-image" src="" alt="프로젝트 이미지" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 30px; display: none; box-shadow: 0 4px 10px var(--shadow-color); opacity: 0; transition: opacity 0.5s;">
+
+        <div class="project-meta">
+            <p><strong>🗓️ 프로젝트 기간:</strong> <span id="project-period"></span></p>
+            <p><strong>🛠️ 사용 기술:</strong> <span id="project-tech"></span></p>
+        </div>
+
+        <h3>📄 프로젝트 소개</h3>
+        <div id="project-description">
+            <p>프로젝트 설명을 로딩 중입니다...</p>
+        </div>
+
+        <h3>✨ 나의 역할 및 기여</h3>
+        <ul id="project-roles">
+            <li>역할 정보를 로딩 중입니다...</li>
+        </ul>
+
+        <a href="index.html" class="back-to-list-btn">← 전체 목록으로 돌아가기</a>
+
+    </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<div class="overlay" id="menuOverlay"></div>
+
+<script src="script.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+        const detailsSection = document.getElementById('project-details');
+        const titleElement = document.getElementById('project-title');
+        const periodElement = document.getElementById('project-period');
+        const techElement = document.getElementById('project-tech');
+        const descriptionElement = document.getElementById('project-description');
+        const rolesListElement = document.getElementById('project-roles');
+        const imageElement = document.getElementById('project-image');
+        const backButton = document.querySelector('.back-to-list-btn');
+
+        // 뒤로가기 버튼 텍스트 및 동작 변경 (이전 페이지가 index.html이면)
+        if (backButton && document.referrer && document.referrer.includes('index.html')) {
+            backButton.textContent = '← 이전 페이지로 돌아가기';
+            backButton.onclick = (e) => {
+                e.preventDefault(); // 기본 링크 동작 방지
+                window.history.back(); // 브라우저 뒤로가기 실행
+            };
+        }
+
+        // 필수 요소 없으면 에러 처리
+        if (!projectId || !detailsSection || !titleElement || !periodElement || !techElement || !descriptionElement || !rolesListElement || !imageElement) {
+            if (titleElement) titleElement.textContent = '페이지 로딩 오류';
+            if (descriptionElement) descriptionElement.innerHTML = '<p>페이지의 필수 구성 요소를 찾을 수 없습니다. HTML 구조를 확인해주세요.</p>';
+            console.error('Project detail page initialization failed: Essential elements not found.');
+            if(backButton) backButton.style.display = 'block'; // 뒤로가기 버튼은 표시
+            return;
+        }
+
+        // 데이터 로딩 및 표시
+        try {
+            const response = await fetch('data.json');
+            if (!response.ok) throw new Error(`데이터 파일을 불러오는데 실패했습니다. (status: ${response.status})`);
+            const data = await response.json();
+            const project = data.projects.find(p => p.id === projectId);
+
+            if (!project) {
+                titleElement.textContent = '프로젝트 없음';
+                descriptionElement.innerHTML = `<p>요청하신 ID ('${projectId}')에 해당하는 프로젝트 정보를 찾을 수 없습니다.</p>`;
+                // 관련 정보 영역 숨김
+                periodElement.closest('.project-meta').style.display = 'none';
+                rolesListElement.previousElementSibling.style.display = 'none'; // h3 숨김
+                rolesListElement.style.display = 'none';
+                if(backButton) backButton.style.display = 'block';
+                return;
+            }
+
+            // 데이터 바인딩
+            document.title = `${project.title || '프로젝트 상세'} - 김남해`;
+            titleElement.textContent = project.title || '제목 없음';
+
+            if (project.detailImage) {
+                imageElement.src = project.detailImage;
+                imageElement.alt = `${project.title || '프로젝트'} 상세 이미지`;
+                imageElement.style.display = 'block';
+                // 이미지 로드 완료 후 표시 (부드러운 효과)
+                imageElement.onload = () => { imageElement.style.opacity = 1; };
+            } else {
+                imageElement.style.display = 'none';
+            }
+
+            periodElement.textContent = project.period || '정보 없음';
+
+            if (project.technologies && project.technologies.length > 0) {
+                techElement.innerHTML = project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join(' ');
+            } else {
+                techElement.innerHTML = '<span class="no-info">정보 없음</span>'; // 정보 없을 때 표시
+            }
+
+            descriptionElement.innerHTML = project.description || '<p class="no-info">상세 설명이 없습니다.</p>';
+
+            rolesListElement.innerHTML = ''; // 기존 내용 비우기
+            if (project.roles && project.roles.length > 0) {
+                project.roles.forEach(role => {
+                    const li = document.createElement('li');
+                    li.textContent = role;
+                    rolesListElement.appendChild(li);
+                });
+            } else {
+                rolesListElement.innerHTML = '<li class="no-info">기여 역할 정보가 없습니다.</li>';
+            }
+
+            // 로드 완료 후 스크롤 페이드인 효과 적용되도록
+            // detailsSection에 js-scroll-fade-in 클래스가 이미 있으므로 script.js에서 처리
+
+        } catch (error) {
+            console.error('프로젝트 상세 정보 로딩 오류:', error);
+            titleElement.textContent = '오류 발생';
+            descriptionElement.innerHTML = `<p>프로젝트 정보를 불러오는 중 문제가 발생했습니다.</p><p style="color: red;">${error.message}</p>`;
+            // 오류 시 관련 정보 숨김
+            periodElement.closest('.project-meta').style.display = 'none';
+            rolesListElement.previousElementSibling.style.display = 'none'; // h3 숨김
+            rolesListElement.style.display = 'none';
+            if (imageElement) imageElement.style.display = 'none';
+            if(backButton) backButton.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

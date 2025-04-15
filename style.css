@@ -1,0 +1,1193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --header-bg: #ffffff;
+    --header-text: #000000;
+    --post-bg: #f7f7f7;
+    --accent: #000000;
+    --overlay-bg: rgba(0, 0, 0, 0.6);
+    --modal-bg: #ffffff;
+    --modal-text: #111111;
+    --border-color: #ccc;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --link-color: #007bff;
+    --btn-text-color: #000000;
+    --btn-bg-color: #ffffff;
+}
+
+body.dark-mode {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --header-bg: #111111;
+    --header-text: #ffffff;
+    --post-bg: #2a2a2a;
+    --accent: #ffffff;
+    --modal-bg: #2a2a2a;
+    --modal-text: #f5f5f5;
+    --border-color: #444;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --link-color: #6bb8ff;
+    --btn-text-color: #ffffff;
+    --btn-bg-color: #333333;
+}
+
+html {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.6;
+}
+
+body.menu-open, body.modal-open {
+    overflow: hidden;
+}
+
+/* Combined rule */
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+body.dark-mode a:focus-visible, body.dark-mode button:focus-visible, body.dark-mode [tabindex="0"]:focus-visible {
+    outline-color: var(--link-color);
+    box-shadow: 0 0 0 4px rgba(107, 184, 255, 0.3);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    filter: brightness(1.2);
+}
+
+header { /* Style applies once header is loaded */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s ease;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo a {
+    color: var(--header-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.logo svg {
+    height: 32px;
+    fill: currentColor;
+    margin-right: 8px;
+}
+
+header nav {
+    display: block;
+}
+
+header nav a {
+    color: var(--header-text);
+    margin-left: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+header nav a:hover::after {
+    width: 100%;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1002;
+    color: var(--header-text);
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    max-width: 80%;
+    height: 100vh;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    z-index: 1001;
+    padding: 80px 25px 25px;
+    box-shadow: -3px 0 8px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-left: 1px solid var(--border-color);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+body.menu-open .mobile-nav {
+    transform: translateX(0);
+}
+
+#mobileNavLinks { /* Should be inside .mobile-nav */
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-size: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: opacity 0.2s ease;
+}
+
+.mobile-nav a:hover {
+    opacity: 0.7;
+}
+
+.mobile-nav a:last-child {
+    border-bottom: none;
+}
+
+.close-menu-btn { /* If used, needs to be in _header.html */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    background: none;
+    border: none;
+    color: var(--header-text);
+    cursor: pointer;
+    z-index: 1002;
+    padding: 5px;
+    line-height: 1;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-bg);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.menu-open .overlay, body.modal-open .overlay {
+    display: block;
+    opacity: 1;
+}
+
+body.modal-open .overlay {
+    z-index: 1040;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 60px 40px;
+    background-color: var(--post-bg);
+    border-radius: 16px;
+    margin: 50px 25px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.profile-info img {
+    aspect-ratio: 3 / 4;
+    width: 350px;
+    height: calc(350px * 4 / 3);
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.profile-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-text h2 {
+    font-size: 44px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.profile-text > p {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.contact {
+    margin-bottom: 30px;
+}
+
+.contact p {
+    font-size: 18px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.contact p svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    fill: currentColor;
+    opacity: 0.8;
+}
+
+.contact p a {
+    font-size: 18px;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.contact p a:hover {
+    text-decoration: underline;
+}
+
+.social-icons a {
+    margin-right: 18px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 18px;
+    transition: opacity 0.2s ease;
+}
+
+.social-icons a:hover {
+    opacity: 0.7;
+}
+
+.slider {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0 auto 50px;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    will-change: transform;
+}
+
+.slide-item {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+}
+
+.slide-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 25px;
+    left: 35px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 18px 25px;
+    border-radius: 8px;
+    max-width: calc(100% - 70px);
+}
+
+.slide-caption h3 {
+    margin: 0 0 10px;
+    font-size: 1.4em;
+}
+
+.slide-caption .details-link { /* Style for the "자세히 보기" link */
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--btn-bg-color);
+    color: var(--btn-text-color);
+    padding: 9px 18px;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.slide-caption .details-link:hover {
+    background: var(--accent);
+    color: var(--bg-color);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 28px;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-btn:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.slide-btn.prev {
+    left: 15px;
+}
+
+.slide-btn.next {
+    right: 15px;
+}
+
+.slide-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 5px 0;
+}
+
+.indicator { /* Reverted style (no transform) */
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none; /* Ensure it looks like a button */
+    padding: 0; /* Ensure no extra padding */
+}
+
+.indicator.active {
+    background: var(--accent);
+}
+
+.content {
+    padding: 0 25px;
+}
+
+#contentPostSection {
+    padding-top: 30px;
+}
+
+.post {
+    background: var(--post-bg);
+    border-radius: 12px;
+    margin-bottom: 25px;
+    padding: 25px;
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: inherit;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    cursor: pointer; /* Indicate clickable */
+}
+
+.post:hover {
+    box-shadow: 0 6px 15px var(--shadow-color);
+    transform: translateY(-5px);
+}
+
+.post img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.post-text {
+    flex: 1;
+}
+
+.post-text h3 {
+    margin: 0 0 12px;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+
+.post-text p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-color);
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.dark-toggle { /* Text button style */
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    background: var(--bg-color);
+    color: var(--accent);
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1003;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.dark-toggle:hover {
+    transform: scale(1.05);
+    background-color: var(--accent);
+    color: var(--bg-color);
+}
+
+.js-scroll-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.js-scroll-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+footer { /* Style applies once footer is loaded */
+    background: var(--post-bg);
+    text-align: center;
+    padding: 40px 25px;
+    margin-top: 80px;
+    font-size: 15px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color); /* Ensure text color inherits correctly */
+}
+
+.resume-section {
+    margin-bottom: 45px;
+    padding: 0 25px;
+    text-align: left;
+}
+
+.resume-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.resume-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.resume-section ul li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.two-column {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.two-column ul {
+    flex: 1;
+    min-width: 250px;
+}
+
+footer .content { /* Style specific to content within the loaded footer */
+    padding: 0;
+}
+
+footer .resume-section {
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer a {
+    color: var(--link-color);
+}
+
+#contactSection {
+    padding: 50px 25px;
+    background-color: var(--post-bg);
+    margin: 50px 0;
+}
+
+#contactSection h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--accent);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+#formStatus {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent; /* Overlay provides background */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.is-open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    color: var(--modal-text);
+    margin: auto;
+    padding: 30px 40px;
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px var(--shadow-color);
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideInModal 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.modal-close-btn {
+    color: var(--modal-text);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.modal-close-btn:hover {
+    opacity: 1;
+}
+
+.modal h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.modal-body p, .modal-body ul {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.modal-body ul {
+    list-style: disc;
+    padding-left: 25px;
+}
+
+@keyframes slideInModal {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    header { /* Applies to loaded header */
+        padding: 15px;
+    }
+
+    header nav { /* Hides desktop nav inside loaded header */
+        display: none;
+    }
+
+    .mobile-menu-toggle { /* Shows mobile toggle inside loaded header */
+        display: block;
+    }
+
+    .slider {
+        aspect-ratio: auto;
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    .slide-caption {
+        font-size: 13px;
+        padding: 10px 15px;
+        bottom: 15px;
+        left: 15px;
+        max-width: calc(100% - 30px);
+    }
+
+    .slide-caption .details-link {
+        font-size: 13px;
+        padding: 7px 14px;
+    }
+
+    .slide-indicators {
+        margin-top: 8px;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        margin: 0 4px;
+    }
+
+    .slide-btn {
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
+    .slide-btn.prev {
+        left: 10px;
+    }
+
+    .slide-btn.next {
+        right: 10px;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 30px 20px;
+        gap: 25px;
+        margin: 30px 15px;
+    }
+
+    .profile-info img {
+        width: 80%;
+        max-width: 300px;
+        height: auto;
+        aspect-ratio: 3 / 4;
+    }
+
+    .profile-text h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .profile-text > p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .contact {
+        margin-bottom: 20px;
+    }
+
+    .contact p {
+        font-size: 16px;
+        margin: 8px 0;
+        justify-content: center;
+    }
+
+    .contact p a {
+        font-size: 16px;
+    }
+
+    .social-icons {
+        margin-top: 10px;
+    }
+
+    .social-icons a {
+        margin: 0 10px;
+        font-size: 16px;
+    }
+
+    .content {
+        padding: 0 15px;
+    }
+
+    #contentPostSection {
+        padding-top: 20px;
+    }
+
+    .post {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .post img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    .post-text h3 {
+        font-size: 1.15em;
+    }
+
+    .post-text p {
+        font-size: 14px;
+    }
+
+    .two-column {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .two-column ul {
+        margin-bottom: 25px;
+    }
+
+    .resume-section {
+        padding: 0 15px;
+        margin-bottom: 35px;
+    }
+
+    .resume-section h2 {
+        font-size: 1.6em;
+    }
+
+    .js-scroll-fade-in {
+        transform: translateY(20px);
+    }
+
+    .js-scroll-fade-in.is-visible {
+        transform: translateY(0);
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 25px;
+        max-height: 80vh;
+    }
+
+    .modal h3 {
+        font-size: 1.5em;
+    }
+
+    .modal-close-btn {
+        font-size: 28px;
+        top: 10px;
+        right: 15px;
+    }
+
+    #contactSection {
+        padding: 40px 15px;
+        margin: 40px 0;
+    }
+
+    #contactSection h2 {
+        font-size: 1.8em;
+    }
+
+    .form-group input, .form-group textarea {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .dark-toggle {
+        padding: 8px 15px;
+        font-size: 14px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+#project-details {
+    max-width: 900px; /* 본문 최대 너비 설정 */
+    margin: 50px auto; /* 위아래 여백 및 가로 중앙 정렬 */
+    padding: 35px 45px; /* 내부 여백 */
+    background-color: var(--post-bg); /* 배경색 (기존 포스트와 유사하게) */
+    border-radius: 16px; /* 모서리 둥글게 */
+    box-shadow: 0 5px 20px var(--shadow-color); /* 그림자 효과 */
+    border: 1px solid var(--border-color); /* 테두리 */
+}
+
+#project-details h2 { /* 프로젝트 제목 */
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2.4em; /* 제목 폰트 크기 */
+    font-weight: 600;
+    border-bottom: 3px solid var(--accent); /* 하단 강조선 */
+    padding-bottom: 15px;
+    line-height: 1.3;
+}
+
+#project-details h3 { /* "프로젝트 소개", "나의 역할" 등 부제목 */
+    margin-top: 45px; /* 위쪽 여백 */
+    margin-bottom: 18px; /* 아래쪽 여백 */
+    font-size: 1.7em; /* 부제목 폰트 크기 */
+    color: var(--accent); /* 강조색 */
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border-color); /* 점선 구분선 */
+    display: inline-block; /* 밑줄이 텍스트 길이에 맞게 */
+}
+
+.project-meta { /* 기간, 기술 스택 정보 영역 */
+    margin-bottom: 40px;
+    padding: 20px 25px;
+    background-color: rgba(0,0,0,0.02); /* 약간 어두운 배경 */
+    border-left: 5px solid var(--accent); /* 왼쪽 강조선 */
+    border-radius: 8px;
+}
+
+body.dark-mode .project-meta {
+    background-color: rgba(255,255,255,0.04); /* 다크모드 시 약간 밝은 배경 */
+}
+
+.project-meta p {
+    margin: 12px 0;
+    font-size: 1.1em; /* 폰트 크기 */
+    line-height: 1.6;
+}
+
+.project-meta strong { /* 레이블 (🗓️, 🛠️) */
+    margin-right: 10px;
+    display: inline-block; /* 아이콘과 텍스트 정렬 */
+    vertical-align: middle;
+}
+
+#project-tech .tech-tag { /* 기술 스택 태그 스타일 */
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--bg-color);
+    padding: 4px 10px;
+    border-radius: 15px; /* 타원형 모양 */
+    font-size: 0.9em;
+    margin-right: 8px;
+    margin-bottom: 8px; /* 줄바꿈 시 여백 */
+    font-weight: 500;
+}
+
+body.dark-mode #project-tech .tech-tag { /* 다크 모드 태그 색상 반전 */
+    background-color: var(--post-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+
+#project-description p { /* 프로젝트 소개 본문 */
+    line-height: 1.8; /* 줄 간격 */
+    margin-bottom: 18px; /* 단락 간 여백 */
+    font-size: 1.05em;
+}
+#project-description a { /* 소개글 안의 링크 */
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+#project-roles { /* 역할/기여 목록 */
+    list-style: none; /* 기본 불릿 제거 */
+    padding-left: 0;
+    margin-bottom: 40px;
+}
+
+#project-roles li {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    padding-left: 25px; /* 들여쓰기 */
+    position: relative;
+    font-size: 1.05em;
+}
+
+#project-roles li::before { /* 커스텀 불릿 (✨) */
+    content: '✨';
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: var(--accent);
+    font-size: 1em;
+}
+
+.back-to-list-btn { /* 목록으로 돌아가기 버튼 */
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: var(--accent);
+    color: var(--bg-color); /* 배경색과 대비되는 텍스트 색 */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.back-to-list-btn:hover {
+    filter: brightness(1.15); /* 약간 밝게 */
+    transform: translateY(-3px); /* 살짝 위로 이동 */
+    text-decoration: none; /* 밑줄 제거 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .back-to-list-btn { /* 다크 모드 버튼 스타일 */
+    background-color: var(--post-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+body.dark-mode .back-to-list-btn:hover {
+    background-color: var(--bg-color); /* 호버 시 배경 약간 변경 */
+    border-color: var(--accent);
+    color: var(--accent);
+    filter: none; /* 밝기 필터 제거 */
+}
+
+/* --- 반응형 디자인 조정 --- */
+@media (max-width: 768px) {
+    #project-details {
+        padding: 25px 20px; /* 모바일에서 내부 여백 줄임 */
+        margin: 30px 15px; /* 위아래, 좌우 여백 줄임 */
+    }
+    #project-details h2 { /* 제목 */
+        font-size: 2em;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+    }
+    #project-details h3 { /* 부제목 */
+        font-size: 1.5em;
+        margin-top: 35px;
+        margin-bottom: 15px;
+    }
+    .project-meta { /* 기간, 기술 영역 */
+        padding: 15px 20px;
+        margin-bottom: 30px;
+    }
+    .project-meta p {
+        font-size: 1em; /* 폰트 약간 작게 */
+    }
+    #project-description p, #project-roles li {
+        font-size: 1em; /* 본문/목록 폰트 약간 작게 */
+    }
+    #project-roles li {
+        padding-left: 20px; /* 들여쓰기 약간 줄임 */
+    }
+    .back-to-list-btn {
+        padding: 10px 20px; /* 버튼 크기 약간 줄임 */
+        width: 100%; /* 버튼 너비 100% */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        box-sizing: border-box; /* 패딩 포함 너비 계산 */
+    }
+}
+
+.scroll-fade-image {
+    display: block; /* 이미지가 블록 요소처럼 동작하도록 */
+    max-width: 85%; /* 이미지 최대 너비 (조절 가능) */
+    height: auto; /* 높이는 비율에 맞게 자동 조절 */
+    margin: 40px auto; /* 위아래 여백 및 가로 중앙 정렬 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* 그림자 효과 */
+    background-color: var(--post-bg); /* 이미지 로딩 전 배경색 */
+
+    /* --- 초기 상태 --- */
+    opacity: 0; /* 투명하게 시작 */
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 전환 효과 */
+    will-change: opacity, transform; /* 브라우저에 성능 최적화 힌트 제공 */
+}
+
+/* 좌측에서 페이드인 될 요소의 초기 상태 */
+.scroll-fade-image.fade-in-left {
+    transform: translateX(-70px) scale(0.9); /* 왼쪽 밖에서 약간 작게 시작 */
+}
+
+/* 우측에서 페이드인 될 요소의 초기 상태 */
+.scroll-fade-image.fade-in-right {
+    transform: translateX(70px) scale(0.9); /* 오른쪽 밖에서 약간 작게 시작 */
+}
+
+/* 화면에 보여질 때(is-visible 클래스 추가 시) 적용될 최종 상태 */
+.scroll-fade-image.is-visible {
+    opacity: 1; /* 완전히 보이게 */
+    transform: translateX(0) scale(1); /* 원래 위치와 크기로 복귀 */
+}
+
+/* 이미지 컨테이너 (선택적: 이미지 그룹 간 여백 등 조절) */
+.detail-images-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- 반응형 조정 --- */
+@media (max-width: 768px) {
+    .scroll-fade-image {
+        max-width: 100%; /* 모바일에서는 꽉 차게 */
+        margin: 30px auto;
+    }
+    /* 모바일에서는 효과 강도 약하게 (선택적) */
+    .scroll-fade-image.fade-in-left {
+        transform: translateX(-40px) scale(0.95);
+    }
+    .scroll-fade-image.fade-in-right {
+        transform: translateX(40px) scale(0.95);
+    }
+}

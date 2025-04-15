@@ -1,0 +1,156 @@
+{
+  "projects": [
+    {
+      "id": "project1",
+      "title": "수행 프로젝트: Character Augmented Reality Defense",
+      "sliderTitle": "Character Augmented Reality Defense",
+      "sliderImage": "image/card.jpg",
+      "altText": "Character Augmented Reality Defense 프로젝트 이미지",
+      "period": "2022.08 ~ 2023.05",
+      "technologies": [
+        "C++",
+        "UE Blueprint",
+        "Java",
+        "ARCore 1.7",
+        "ARKit 3.0",
+        "Unreal Engine 5",
+        "Visual Studio",
+        "CLion",
+        "Android Studio",
+        "Git",
+        "SourceTree",
+        "Excel",
+        "PPT"
+      ],
+      "description": "<p>책상위의 평면 및 사물을 인식하여 장애물로 활용하고, 2D 굿즈(띠부씰 등) 이미지 인식을 통해 가상 타워를 생성하여 진행하는 AR 디펜스 게임 애플리케이션입니다.</p><p>Unreal Engine 5 기반으로 개발되었으며, ARCore와 ARKit을 활용하여 현실 공간과의 상호작용을 구현했습니다. 졸업작품 발표에서 금상을 수상했습니다.</p>",
+      "roles": [
+        "팀장",
+        "프로젝트 주제 선정 및 엔진 비교 분석 (Unreal Engine 채택)",
+        "AR 기술 도입 검토 및 방향성 설정",
+        "졸업작품 경쟁력 확보 전략 수립",
+        "최종 프레젠테이션 발표 및 금상 수상 기여"
+      ],
+      "detailImage": "image/card.jpg",
+      "detailImages": [
+        "image/hts.jpg"
+      ],
+      "resultLink": "https://www.youtube.com/watch?v=4EHBmFiC97Mhttps://drive.google.com/file/d/1G12iSY7NPMnQKy9FOQJT1capCuIfenMI/view"
+    },
+    {
+      "id": "project2",
+      "title": "수행 프로젝트: Hex Tile Strategy",
+      "sliderTitle": "Hex Tile Strategy",
+      "sliderImage": "image/그림3.png",
+      "altText": "Hex Tile Strategy 프로젝트 이미지",
+      "period": "2023.03 ~ 2024.08",
+      "technologies": [
+        "C#",
+        "Unity",
+        "Hex Maps Tutorials",
+        "Visual Studio",
+        "CLion",
+        "Git",
+        "Google Sheets",
+        "Google Slide"
+      ],
+      "description": "<p>기존 사각형 타일맵의 한계를 벗어나 육각형 타일맵을 기반으로 더 다양한 전략과 기능을 구현하는 턴제 전략 게임입니다.</p><p>Unity 엔진을 사용하여 개발되었으며, 육각형 타일맵 구현 및 좌표계 재구성, TCG 스타일 UI 구현, 오브젝트 정규화 등을 진행했습니다.</p>",
+      "roles": [
+        "팀장 (Project Director)",
+        "개인 프로젝트(Tilemap & Chess) 통한 기반 지식 준비",
+        "팀원 모집 및 면접 진행",
+        "Unity 도입 및 육각형 타일맵 구현 주도",
+        "평면좌표계 기반 육각형 타일맵 계산식 구현 및 좌표계 재구성",
+        "TCG 스타일 UI (카드, 유닛 스킬 등) 구현",
+        "오브젝트(타일, 유닛, 지형 등) 정규화 및 코드 재구성"
+      ],
+      "detailImage": "image/그림3.png",
+      "detailImages": [
+        "image/그림5.png",
+        "image/그림6.png"
+      ],
+      "resultNote": "팀원 요청에 의한 공개 불가"
+    },
+    {
+      "id": "project3",
+      "title": "수행 프로젝트: 우리들의 편한 인테리어",
+      "sliderTitle": "우리들의 편한 인테리어",
+      "sliderImage": "image/sheep.png",
+      "altText": "우리들의 편한 인테리어 프로젝트 이미지",
+      "period": "2025.02 ~ 2025.04",
+      "technologies": [
+        "Java",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "MySQL",
+        "Spring Boot",
+        "jQuery",
+        "JSON",
+        "Thymeleaf",
+        "MyBatis",
+        "Spring Security",
+        "Lombok",
+        "Eclipse",
+        "IntelliJ",
+        "Apache Tomcat 9.0",
+        "Git",
+        "GitHub Desktop",
+        "SourceTree",
+        "ERDCloud",
+        "Google Sheets",
+        "Google Slide"
+      ],
+      "description": "<p>소비자가 인테리어 희망 사항을 입력하면 판매자가 견적을 제출하고, 소비자는 역경매 방식으로 선택하는 가격 비교 플랫폼 웹앱입니다.</p><p>거래 내역 지도 표시, 리뷰 작성 기능을 통해 인테리어 시장 활성화를 목표로 합니다. Spring Boot 기반으로 개발되었습니다.</p>",
+      "roles": [
+        "팀장 (Project Manager)",
+        "개발 환경 세팅 (SpringBoot, Spring Security, Lombok, MySQL, MyBatis) 및 배포",
+        "DB 테이블 설계, 생성, 수정 및 관리",
+        "프로그램 전체 구조 형상 관리, 병합, 수정 테스트",
+        "병합 후 수정사항 공지 및 전체 코드 피드백",
+        "PPT 작성 및 발표",
+        "CI/CD 배포 및 유지보수 관리 위한 코드 수정"
+      ],
+      "detailImage": "image/sheep.png",
+      "detailImages": [
+      ],
+      "links": [
+        { "url": "https://github.com/SouthSea0613/sheep", "text": "GitHub Repository" },
+        { "url": "https://southsea0613.github.io/blog/project-detail.html?id=project3", "text": "Project Detail (Blog)" }
+      ]
+    }
+  ],
+  "contentPosts": [
+    {
+      "imageSrc": "image/그림4.png",
+      "altText": "Turn & Chess 프로젝트 이미지",
+      "title": "개인 프로젝트: Turn & Chess",
+      "description": "C++과 .NET 프레임워크를 활용하여 정사각형 필드맵 기반의 턴제 체스 게임 구현. 기물별 이동 범위 및 플레이어 턴 시스템 개발.",
+      "details": "<p>턴제 게임 및 필드맵 구현 능력을 향상시키기 위해 진행한 개인 프로젝트입니다. C++ 언어와 .NET 프레임워크를 사용하여 기본적인 정사각형 필드맵을 만들고, 각 체스 기물의 이동 규칙과 플레이어별 턴 진행 로जिक을 구현했습니다. (기간: 2023.03 ~ 2023.06)</p>",
+      "period": "2023.03 ~ 2023.06"
+    },
+    {
+      "imageSrc": "image/thumb_blog.jpg",
+      "altText": "개인 블로그 프로젝트 이미지",
+      "title": "개인 프로젝트: 개인 블로그 개발",
+      "description": "React 기반 반응형 프론트엔드 웹앱으로 개인 포트폴리오 블로그 구축. GitHub Pages를 통해 배포.",
+      "details": "<p>개인 포트폴리오 및 기술 공유를 목적으로 React 프레임워크를 사용하여 반응형 웹 블로그를 개발하고 있습니다. 개발된 웹앱은 Git과 GitHub Pages를 연동하여 정적 페이지 형태로 배포 및 운영될 예정입니다.</p>",
+      "period": "2025.02 ~ 진행 중"
+    },
+    {
+      "imageSrc": "image/그림7.png",
+      "altText": "ANN, CNN 구현 프로젝트 이미지",
+      "title": "개인 프로젝트: ANN, CNN 직접 구현",
+      "description": "인공 신경망 기초 이해를 위해 Keras, Pytorch 등 라이브러리 없이 C, Java, Python으로 ANN, CNN 기본 연산 구현.",
+      "details": "<p>인공지능 Neural Network의 기본 원리를 깊이 이해하기 위해, TensorFlow, Keras, PyTorch와 같은 고수준 딥러닝 라이브러리를 사용하지 않고 프로젝트를 진행했습니다. C, Java, Python 언어를 사용하여 기본적인 수학 연산자만으로 Artificial Neural Network (ANN)와 Convolutional Neural Network (CNN)의 핵심 로직을 직접 구현하며 기초를 다졌습니다.</p>",
+      "period": "2023.03 ~ 2023.06"
+    },
+    {
+      "imageSrc": "image/그림9.png",
+      "altText": "FFXIV 빅데이터 분석 프로젝트 이미지",
+      "title": "개인 프로젝트: FFXIV 빅데이터 분석",
+      "description": "ffxiv logs API를 통해 게임 데이터 수집 및 분석. 빅데이터 분석 기법을 활용하여 게임 내 최적 해결 방법 도출 시도.",
+      "details": "<p>빅데이터 분석 능력을 실제 데이터에 적용해보기 위해 Final Fantasy XIV (FFXIV) 게임 데이터를 활용했습니다. ffxiv logs 사이트에서 제공하는 방대한 양의 축적된 게임 데이터와 API를 이용하여 데이터를 수집하고, 다양한 분석 기법을 적용하여 게임 플레이에 대한 최적의 해결 방법이나 패턴을 도출하고자 했습니다.</p>",
+      "period": "2023.09 ~ 2023.12"
+    }
+  ]
+}
